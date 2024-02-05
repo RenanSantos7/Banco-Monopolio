@@ -22,7 +22,7 @@ foreach ($folder in $srcFolders) {
     }
 }
 
-Write-Host "Estrutura de pastas consertada"
+Write-Host "Estrutura de pastas atualizada"
 
 # Limpar o conteúdo de src/index.css e acrescentar a linha "@import url('https://renan-santos.netlify.app/styles/reset.css');"
 "@import url('https://renan-santos.netlify.app/styles/reset.css');" | Out-File -FilePath .\src\index.css
@@ -34,11 +34,15 @@ Remove-Item -Path .\src\App.jsx -Force
 
 # Criar o arquivo src/router.jsx
 @"
+import { BrowserRouter, Routes } from "react-router-dom";
+
 export default function Router() {
   return (
-    <>
-      
-    </>
+    <BrowserRouter>
+      <Routes>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 "@ | Out-File -FilePath .\src\router.jsx
@@ -91,6 +95,35 @@ npm install --save `
   "react-router-hash-link"
 Write-Host "dependências instaladas"
 
+# Configurar o repositório git local
+@"
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+posVite.ps1
+posVite.sh
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+"@ | Out-File -FilePath .\.gitignore
 
 git init
 git branch -M main
